@@ -3,7 +3,6 @@ import Cors from "micro-cors";
 import { Pool } from "pg";
 import crypto from "crypto";
 import dotenv from "dotenv";
-import fetch from "node-fetch";
 
 dotenv.config();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
