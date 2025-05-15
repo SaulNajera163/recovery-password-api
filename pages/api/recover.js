@@ -61,15 +61,19 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'api-key':       process.env.BREVO_API_KEY
       },
-      body: JSON.stringify({
-        sender:     { name: "Equipo SS", email: process.env.EMAIL_FROM },
-        to:         [{ email }],
-        subject:    'Recuperación de contraseña',
-        textContent: `Tu contraseña temporal es tu número de control (${control_number}).\n\n` +
-                     `Para elegir tu propia contraseña haz clic aquí:\n${resetLink}`,
-        htmlContent: `<p>Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu <strong>número de control</strong> (${control_number}) como contraseña. <a href="${appLink}">Acceder</a>.</p>
-                      <p>\n\n<strong>¡IMPORTANTE!</strong>\nComo sugerencia, es recomendable que una vez ingresando correctamente a la plataforma cambnie su contraseña para evitar robos, falsificaciones o problemas futuros./p>`
-      })
+     body: JSON.stringify({
+  sender:     { name: "Equipo SS", email: process.env.EMAIL_FROM },
+  to:         [{ email }],
+  subject:    'Recuperación de contraseña',
+  textContent: 
+    `Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu número de control (${control_number}) como contraseña. Accede aquí: ${appLink}
+
+¡IMPORTANTE!
+Como sugerencia, una vez dentro de la plataforma, cambia tu contraseña para evitar robos, falsificaciones o problemas futuros.`,
+  htmlContent: 
+    `<p>Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu <strong>número de control</strong> (${control_number}) como contraseña. <a href="${appLink}">Acceder</a>.</p>
+     <p><strong>¡IMPORTANTE!</strong> Como sugerencia, es recomendable que, una vez ingresando correctamente a la plataforma, cambies tu contraseña para evitar robos, falsificaciones o problemas futuros.</p>`
+})
     })
 
     const data = await resp.json()
