@@ -1,2 +1,10 @@
-node_modules
+# Dependencias y build
+node_modules/
+.next/
+
+# Configuración local y secretos
 .env
+.vercel/
+
+# Archivos de sistema o IDE (opcional)
+.DS_Store
