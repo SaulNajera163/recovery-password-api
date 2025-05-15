@@ -8,7 +8,7 @@ dotenv.config();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 const cors = Cors({
-  origin: "*",                  
+  origin: "*",
   allowMethods: ["PUT", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
 });
@@ -74,8 +74,12 @@ const handler = async (req, res) => {
         sender: { name: "Equipo SS", email: process.env.EMAIL_FROM },
         to: [{ email }],
         subject: "Recuperación de contraseña",
-        textContent: `Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu número de control (${control_number}) como contraseña. Accede aquí: ${appLink}`,
-        htmlContent: `<p>Se ha restablecido tu contraseña exitosamente… <a href="${appLink}">Acceder</a>.</p>`,
+        textContent: `Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu número de control (${control_number}) como contraseña. Accede aquí: ${appLink}
+
+¡IMPORTANTE!
+Como sugerencia, una vez dentro de la plataforma, cambia tu contraseña para evitar robos, falsificaciones o problemas futuros.`,
+        htmlContent: `<p>Se ha restablecido tu contraseña exitosamente, intenta ingresar nuevamente con tu <strong>número de control</strong> (${control_number}) como contraseña. <a href="${appLink}">Acceder</a>.</p>
+     <p><strong>¡IMPORTANTE!</strong> Como sugerencia, es recomendable que, una vez ingresando correctamente a la plataforma, cambies tu contraseña para evitar robos, falsificaciones o problemas futuros.</p>`,
       }),
     });
 
