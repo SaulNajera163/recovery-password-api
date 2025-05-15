@@ -1,20 +1,23 @@
+// /api/recover.js
+import Cors from "micro-cors";
 import { Pool } from "pg";
 import crypto from "crypto";
 import dotenv from "dotenv";
+import fetch from "node-fetch";
 
 dotenv.config();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-export default async function handler(req, res) {
-  // ─── CORS ─────────────────────────────────────────────────────────────
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+const cors = Cors({
+  origin: "*",                  
+  allowMethods: ["PUT", "OPTIONS"],
+  allowHeaders: ["Content-Type", "Authorization"],
+});
+
+const handler = async (req, res) => {
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
-  // ─────────────────────────────────────────────────────────────────────
-
   if (req.method !== "PUT") {
     res.setHeader("Allow", ["PUT", "OPTIONS"]);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
