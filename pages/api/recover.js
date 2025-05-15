@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
     // Genera y guarda contraseña temporal (hash de control_number)
     const salt       = crypto.randomBytes(16).toString('hex')
-    const iterations = 1
+    const iterations = 150000
     const derived    = crypto
       .pbkdf2Sync(control_number, salt, iterations, 32, 'sha256')
       .toString('hex')
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     await pool.query(
       `UPDATE "user"
-          SET password   = $150000,
+          SET password   = $1,
               updated_at = NOW()
         WHERE user_id    = $2`,
       [hash, userId]
