@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
     // Construye el enlace al formulario de reset
     const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/recoverpass?user=${userId}`
-    const appLink = 'https://development.d31rkyyefb7sxv.amplifyapp.com'
+    const appLink = 'https://development.d31rkyyefb7sxv.amplifyapp.com/login'
 
     // Envía el correo vía Brevo (fetch global en Node ≥18)
     const resp = await fetch('https://api.brevo.com/v3/smtp/email', {
